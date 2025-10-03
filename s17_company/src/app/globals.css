@@ -1,26 +1,49 @@
-@import "tailwindcss";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/**
+ * Định nghĩa các Design Token (Biến CSS) cho dự án.
+ * Các biến này sẽ được sử dụng trong CSS thông thường và 
+ * có thể được cấu hình để dùng làm class utilities trong Tailwind.
+ */
+@theme {
+  --font-poppins: Poppins, sans-serif;
+  
+  /* Màu sắc chủ đạo (Shop Colors) */
+  --color-shop-light-pink: #fcf0e4;
+  shop_light_pink: #fcf0e4; 
+  shop_dark_green: #063c28; 
+  shop_btn_dark_green: #063d29; 
+  shop_light_bg: #f6f6f6; 
+  shop_light_green: #3b9c3c; 
+  shop_orange: #fb6c08; 
+
+  /* Màu sắc cơ bản (General Colors) */
+  darkColor: #151515; 
+  lightColor: #52525b; 
+  lightOrange: #fca99b; 
+  lightBlue: #7688db; 
+  darkBlue: #6c7fd8; 
+
+  /* Màu chữ và nền (Text & Background) */
+  darkText: #686e7d; 
+  lightBg: #F8F8F8; 
+  darkRed: #F02757; 
+  lightText: #ababab; 
+  lightGreen: #93d991; 
+  productBg: #f1f3f8; 
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* * Bạn có thể thêm các CSS tùy chỉnh (Custom CSS) dưới đây. 
+ * Ví dụ:
+ 
+ body {
+   font-family: var(--font-poppins);
+   background-color: var(--shop_light_bg); 
+ }
+ 
+ * Để biến các token như `shop_dark_green` thành utility class 
+ * (ví dụ: `bg-shop-dark-green`), bạn cần cấu hình thêm trong file 
+ * `tailwind.config.js`.
+ */
