@@ -1,6 +1,282 @@
-@import "tailwindcss";
-@plugin "tailwindcss-animate"
+/* app/globals.css */
 
-@theme {
- --font--poppins: 'Popistone', sans-serif;
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Light Theme - Brand Colors */
+  --background: 245 246 248; /* light gray background thay vì trắng tinh */
+  --foreground: 28 28 28; /* text gần đen */
+
+  --card: 255 255 255; /* card trắng để nổi bật trên background */
+  --card-foreground: 28 28 28;
+
+  --popover: 255 255 255;
+  --popover-foreground: 28 28 28;
+  
+  --primary: 0 119 200; /* Main Blue: #0077C8 */
+  --primary-foreground: 255 255 255;
+  
+  --secondary: 240 240 240; /* subtle gray cho section phụ */
+  --secondary-foreground: 28 28 28;
+  
+  --muted: 247 247 247;
+  --muted-foreground: 120 120 120;
+  
+  --accent: 255 208 109; /* Accent Yellow */
+  --accent-foreground: 28 28 28;
+  
+  --destructive: 239 68 68; /* Red */
+  --destructive-foreground: 255 255 255;
+  
+  --border: 225 225 225;
+  --input: 230 230 230;
+  --ring: 0 119 200;
+  
+  --chart-1: 0 119 200;
+  --chart-2: 255 208 109;
+  --chart-3: 100 100 100;
+  --chart-4: 150 150 150;
+  --chart-5: 200 200 200;
+  
+  --radius: 0.625rem;
+  
+  --sidebar: 255 255 255;
+  --sidebar-foreground: 28 28 28;
+  --sidebar-primary: 0 119 200;
+  --sidebar-primary-foreground: 255 255 255;
+  --sidebar-accent: 255 208 109;
+  --sidebar-accent-foreground: 28 28 28;
+  --sidebar-border: 230 230 230;
+  --sidebar-ring: 0 119 200;
+}
+
+.dark {
+  /* Dark Theme - Brand Colors */
+  --background: 18 18 18; /* dark gray nền */
+  --foreground: 240 240 240;
+
+  --card: 28 28 28; /* card đậm hơn background */
+  --card-foreground: 240 240 240;
+
+  --popover: 32 32 32;
+  --popover-foreground: 240 240 240;
+
+  --primary: 0 119 200; /* giữ màu xanh brand */
+  --primary-foreground: 255 255 255;
+  
+  --secondary: 38 38 38; 
+  --secondary-foreground: 240 240 240;
+  
+  --muted: 45 45 45;
+  --muted-foreground: 160 160 160;
+  
+  --accent: 255 208 109;
+  --accent-foreground: 18 18 18;
+  
+  --destructive: 239 68 68;
+  --destructive-foreground: 240 240 240;
+  
+  --border: 50 50 50;
+  --input: 50 50 50;
+  --ring: 0 119 200;
+  
+  --chart-1: 0 119 200;
+  --chart-2: 255 208 109;
+  --chart-3: 100 100 100;
+  --chart-4: 150 150 150;
+  --chart-5: 200 200 200;
+
+  --sidebar: 24 24 24;
+  --sidebar-foreground: 240 240 240;
+  --sidebar-primary: 0 119 200;
+  --sidebar-primary-foreground: 255 255 255;
+  --sidebar-accent: 255 208 109;
+  --sidebar-accent-foreground: 240 240 240;
+  --sidebar-border: 50 50 50;
+  --sidebar-ring: 0 119 200;
+}
+
+@theme inline {
+  --font-sans: "Work Sans", var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground transition-colors duration-300 ease-in-out;
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+  }
+
+  /* Chỉ border cho card, popover, sidebar */
+  .card, .popover, .sidebar {
+    @apply border border-border bg-card;
+    border-color: rgb(var(--border));
+    background-color: rgb(var(--card));
+    color: rgb(var(--card-foreground));
+    transition: background-color 250ms, border-color 250ms, color 250ms;
+  }
+
+  button, a, input, textarea, select {
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 160ms ease;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--primary));
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--accent));
+  }
+
+  /* Theme toggle styles */
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+    background: transparent;
+  }
+  .theme-toggle .icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    transition: transform 320ms cubic-bezier(.2,.9,.2,1), opacity 200ms ease;
+  }
+  .theme-toggle .icon-wrap.sun {
+    transform-origin: center;
+  }
+  .theme-toggle .icon-wrap.moon {
+    transform-origin: center;
+  }
+
+  /* Subtle glass nav background */
+  header {
+    transition: background-color 300ms ease, box-shadow 300ms ease;
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+
+  /* Button primary helpers */
+  .btn-gradient {
+    background: linear-gradient(90deg, rgb(var(--primary)), rgb(var(--accent)));
+    color: rgb(var(--primary-foreground));
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Section container refinement */
+  .section-container {
+    position: relative;
+    border-radius: var(--radius-xl);
+    background: rgb(var(--card));
+    padding: clamp(1rem, 2.5vw, 2rem);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 10px 30px rgba(0,0,0,0.06);
+    transition: background-color 250ms, box-shadow 250ms;
+  }
+  .section-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(0,119,200,0.38), rgba(255,208,109,0.24));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .dark .section-container {
+    box-shadow: 0 1px 0 rgba(255,255,255,0.02), 0 10px 30px rgba(0,0,0,0.4);
+    background: rgb(var(--card));
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #0077C8, #FFD06D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Custom scrollbar styles */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgb(209 213 219);
+    border-radius: 3px;
+  }
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgb(75 85 99);
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(156 163 175);
+  }
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(107 114 128);
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle .icon-wrap, button, a { transition: none !important; }
+  }
 }
